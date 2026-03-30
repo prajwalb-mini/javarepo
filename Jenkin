@@ -5,20 +5,20 @@ pipeline{
             git 'https://github.com/prajwalb-mini/javarepo.git' ,branch:'main'
         }
     }
-    stages('2, Build Image'){
+    stage('2, Build Image'){
         steps{
             bat 'docker build -t myweb .'
         }
     }
-    stages('3, Stop all Containers'){
+    stage('3, Stop all Containers'){
         steps{
             bat 'docker stop mycont || exit 0'
             bat 'docker rm mycont || exit 0'
         }
     }
-    stages('4, Run the Image. Container'){
+    stage('4, Run the Image. Container'){
         steps{
-            bat 'docker run -d -p 8000:80 '
+            bat 'docker run -d -p 8000:80 --name mycont myweb'
         }
     }
 }
