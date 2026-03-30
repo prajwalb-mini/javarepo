@@ -1,0 +1,24 @@
+pipeline{
+    agent any
+    stages{
+        stage('1, Checkout'){
+            git 'https://gitlab.siescoms.in/mca25008/jenkin.git' ,branch:'main'
+        }
+    }
+    stages('2, Build Image'){
+        steps{
+            bat 'docker build -t myweb .'
+        }
+    }
+    stages('3, Stop all Containers'){
+        steps{
+            bat 'docker stop mycont || exit 0'
+            bat 'docker rm mycont || exit 0'
+        }
+    }
+    stages('4, Run the Image. Container'){
+        steps{
+            bat 'docker run -d -p 8000:80 '
+        }
+    }
+}
