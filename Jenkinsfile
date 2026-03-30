@@ -13,13 +13,13 @@ pipeline{
         }
         stage('3. stop all containers'){
             steps{
-                bat 'docker stop mycount || exit 0'
-                bat 'docker rm mycount || exit 0'
+                bat 'docker stop mycont || exit 0'
+                bat 'docker rm mycont || exit 0'
             }
         }
         stage('4. Run the Image Containerize'){
             steps{
-                bat 'docker run -d -p 8080:80 --name mycount myweb'
+                bat 'docker run -d -p 8080:80 --name mycont myweb'
             }
         }
     }
