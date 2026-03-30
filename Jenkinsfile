@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('1. checkout'){
             steps{
-                git 'https:'
+                git 'https://github.com/prajwalb-mini/javarepo.git'
             }
         }
         stage('2. Build Images'){
