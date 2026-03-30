@@ -1,32 +1,25 @@
-pipeline {
-    agent any
 
-    stages {
-         stage('Fetch') {
-            steps {
-                echo 'Fetching from repo'
-                git 'https://github.com/aslin-123/DevopsPractical.git'
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'Building in progress'
-                bat 'javac hello.java'
-            }
-        }
-        stage('Execute') {
-            steps {
-                echo 'Executing'
-                bat 'java hello.java'
-            }
+pipeline{
+    agent any
+    stages{
+        stage('1, Checkout'){
+            git 'https://github.com/prajwalb-mini/javarepo.git' ,branch:'main'
         }
     }
-    post{
-        success{
-            echo 'Pipeline build Successfuly'
+    stage('2, Build Image'){
+        steps{
+            bat 'docker build -t myweb .'
         }
-        failure{
-            echo 'Pipeline Failed'
+    }
+    stage('3, Stop all Containers'){
+        steps{
+            bat 'docker stop mycont || exit 0'
+            bat 'docker rm mycont || exit 0'
+        }
+    }
+    stage('4, Run the Image. Container'){
+        steps{
+            bat 'docker run -d -p 8000:80 --name mycont myweb'
         }
     }
 }
