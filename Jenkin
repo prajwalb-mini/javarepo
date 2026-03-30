@@ -2,7 +2,7 @@ pipeline{
     agent any
     stages{
         stage('1, Checkout'){
-            git 'https://gitlab.siescoms.in/mca25008/jenkin.git' ,branch:'main'
+            git 'https://github.com/prajwalb-mini/javarepo.git' ,branch:'main'
         }
     }
     stages('2, Build Image'){
